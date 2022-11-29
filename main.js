@@ -1,38 +1,48 @@
+let img = document.querySelectorAll(`.slider_images img`);
+let btnNext = document.querySelector(`.btn-next`);
+let btnPrev = document.querySelector(`.btn-prev`);
 
-    const tabsParent = document.querySelector('.tabheader__items');
-      tabs = document.querySelectorAll('.tabheader__item');
-      tabsContent = document.querySelectorAll('.tabcontent');
-   
-      function hideTabContent(){
-        tabsContent.forEach((item) => {
-            item.style.display = 'none'
-            
-        });
-tabs.forEach((item)=>{
-    item.classList.remove(`tabheader__item_active`)
+let i = 0;
+btnNext.addEventListener(`click`,function(){
+ 
+  img[i].classList.remove(`active`);
+  i++;
+  console.log(i)
+  if(img.length ==i ){
+    i = 0;
+  }
+  img[i].classList.add(`active`)
+});
+
+console.log(img);
+
+btnPrev.addEventListener(`click`,imgSlider)
+  
+console.log(img);
+function imgSlider(){
+  img[i].classList.remove(`active`);
+  i++;
+  console.log(i)
+  if(img.length ==i ){
+    i = 0;
+  }
+  img[i].classList.add(`active`)
+}
+
+
+const container = document.getElementsByClassName('slider_images');
+
+ container[0].addEventListener('mouseover', ()=>{
+   stopInterval();
 })
+ container[0].addEventListener('mouseleave', ()=>{
+  startInterval();
+ })
 
-
-      }
-      function showTabContent(i=0){
-tabsContent[i].style.display = `block`
-tabs[i].classList.add(`tabheader__item_active`)
-      }
-      hideTabContent()
-      showTabContent()
-      tabsParent.addEventListener('click', (event) => {
-        const target = event.target
-        if (target && target.classList.contains('tabheader__item')) {
-          tabs.forEach((item, idx) => {
-            if (target == item) {
-              hideTabContent()
-              showTabContent(idx)
-            
-            }
-          })
-        }
-      })
-
-
-      let playOn = () => new Audio(`/audio.cat.ogg`)
-      
+let id = setInterval(imgSlider, 2000);
+ function startInterval(){
+  id = setInterval(imgSlider, 2000)
+ }
+function stopInterval(){
+  clearInterval(id);
+ }
